@@ -1,16 +1,16 @@
 Run the executable as follows
 
 ./computeOneGenePval_permutation 
-            --var [covariates age, gender etc]
+            --var [covariates age, gender etc] this is a .txt input
             --numCov [# components such as age, gender etc] 
-            --expr [gene expression] 
-            --geno [variants] 
+            --expr [gene expression] also .txt input 
+            --geno [variants] also .txt input
             --numSNP [# variants] 
-            --w [prior]
+            --w [prior] also .txt input. priors will be normalized inside the code. 
             --final [permutation test p-value output] 
             --pval [minimum p-value among all variants output] 
             --lrt [maximum likelihood ratio output] 
-            --permutation [# permutations] 
+            --permutation [# permutations] should be at least 1000
             --seed [random seed] 
             --alt [alternative mean] this is a number. this option is ignored when --reuse is set to 1.  
             --reuse [reuse estimated mean as alternative mean] this is 1/0 for yes/no 
