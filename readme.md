@@ -9,15 +9,17 @@ This executable finds genes whose expressions are associated with at least one g
 To run, use the following 
 
 ./computeOneGenePval_permutation 
+            --var [covariates age, gender etc]
+            --numCov [# components such as age, gender etc] 
             --expr [gene expression] 
             --geno [variants] 
-            --final [permutation test p-value] 
-            --permutate [# permutations] 
-            --pval [minimum p-value among all SNPs] 
-            --numSNP [# SNPs] 
+            --numSNP [# variants] 
+            --w [prior]
+            --final [permutation test p-value output] 
+            --pval [minimum p-value among all variants output] 
+            --lrt [maximum likelihood ratio output] 
+            --permutation [# permutations] 
             --seed [random seed] 
-            -- numCov [# components such as age, gender etc] 
-            --w [prior] 
             --alt [alternative mean] 
-            --gradient [maximum likelihood ratio] 
+            --reuse [reuse estimated mean as alternative mean] 
             
