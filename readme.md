@@ -1,3 +1,5 @@
+Work in progress. Instruction is incomplete. 
+
 # Egene 
 Egene is a gene that has at least one genetic variant associated with its expression (measured by amount of RNA produced). There is also Pgene which is the analogous, where the gene expression is measured by the amount of protein produced. 
 
