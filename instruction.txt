@@ -23,9 +23,12 @@ Run the executable as follows
             --seed [random seed] 
             --geno [gene exprssion] 
             --pval [minimum pval over all the variants] 
-            --lrt [maximum likelihood ratio output] 
+            --lrt [maximum likelihood over all the variants] 
             --w [prior] see above 
             --alt [alternative mean] see above 
             --reuse [reuse estimated mean as alternative mean]
             --windowSize [500000 is recommended] see more detail instruction below
             --corFactor [1 is recommended] see detail instruction below
+            
+            
+            
