@@ -15,3 +15,17 @@ Run the executable as follows
             --alt [alternative mean] this is a number. this option is ignored when --reuse is set to 1.  
             --reuse [reuse estimated mean as alternative mean] this is 1/0 for yes/no 
             
+
+./computeOneGenePval_mvn 
+            --corf [correlation file of the variants] this is a .txt input 
+            --numSNP [# variants] 
+            --numSample [# of samples to be drawn from mvn ~ analogous to # permutation]
+            --seed [random seed] 
+            --geno [gene exprssion] 
+            --pval [minimum pval over all the variants] 
+            --lrt [maximum likelihood ratio output] 
+            --w [prior] see above 
+            --alt [alternative mean] see above 
+            --reuse [reuse estimated mean as alternative mean]
+            --windowSize [500000 is recommended] see more detail instruction below
+            --corFactor [1 is recommended] see detail instruction below
