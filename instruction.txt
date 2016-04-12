@@ -1,4 +1,4 @@
-Run the executable as follows
+Run the executables as follows
 
 ./computeOneGenePval_permutation 
             --var [covariates age, gender etc] this is a .txt input
@@ -21,7 +21,7 @@ Run the executable as follows
             --numSNP [# variants] 
             --numSample [# of samples to be drawn from mvn ~ analogous to # permutation]
             --seed [random seed] 
-            --geno [gene exprssion] 
+            --geno [gene expression] 
             --pval [minimum pval over all the variants] 
             --lrt [maximum likelihood over all the variants] 
             --w [prior] see above 
