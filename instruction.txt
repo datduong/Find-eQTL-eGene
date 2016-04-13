@@ -6,10 +6,11 @@ Run the executables as follows
             --expr [gene expression] also .txt input 
             --geno [variants] also .txt input
             --numSNP [# variants] 
-            --w [prior] also .txt input. priors will be normalized inside the code. 
+            --w [prior] also .txt input. priors will be normalized inside the code.
+            --detail [detail output at each SNP]
             --final [permutation test p-value output] 
             --pval [minimum p-value among all variants output] 
-            --lrt [maximum likelihood ratio output] 
+            --lr [maximum likelihood ratio output] 
             --permutation [# permutations] should be at least 1000
             --seed [random seed] 
             --alt [alternative mean] this is a number. this option is ignored when --reuse is set to 1.  
@@ -23,12 +24,13 @@ Run the executables as follows
             --seed [random seed] 
             --geno [gene expression] 
             --pval [minimum pval over all the variants] 
-            --lrt [maximum likelihood over all the variants] 
+            --lr [maximum likelihood over all the variants] 
             --w [prior] see above 
             --alt [alternative mean] see above 
             --reuse [reuse estimated mean as alternative mean]
             --windowSize [500000 is recommended] see more detail instruction below
-            --corFactor [1 is recommended] see detail instruction below
+            --corFactor [1 is recommended] see detail at http://genetics.cs.ucla.edu/egene-mvn/
+            --output [eGene Pvalue using MVN method] 
             
             
             
