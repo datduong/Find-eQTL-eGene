@@ -283,7 +283,7 @@ double normPdf_NULL (double x);
 double computeGradient (double testStatistics, double mean, double wts ) ; 
 float * read_wts ( char* file, float* arr, int stop ); 
 
-double MEAN = 2.5 ; 
+double MEAN = 3.5 ; // to be replaced by input 
 
 int main(int argc, char** argv) {
 
