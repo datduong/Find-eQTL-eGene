@@ -8,13 +8,13 @@ Run the executables as follows
             --numSNP [# variants] 
             --w [prior] also .txt input. priors will be normalized inside the code.
             --detail [detail output at each SNP]
-            --final [permutation test p-value output] 
             --pval [minimum p-value among all variants output] 
             --lr [maximum likelihood ratio output] 
             --permutation [# permutations] should be at least 1000
             --seed [random seed] 
             --alt [alternative mean] this is a number. this option is ignored when --reuse is set to 1.  
             --reuse [reuse estimated mean as alternative mean] this is 1/0 for yes/no 
+            --final [permutation test p-value output] 
             
 
 ./computeOneGenePval_mvn 
