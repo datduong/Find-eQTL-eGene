@@ -292,18 +292,18 @@ clock_t tic = clock();
 float num_holder = 0; // temporary holder 
 char str_holder [100]; // temporary holder
 
-char *covf, *phenof, *genof, *llh_outFile, *obsValues_outFile, *wtsf, *pval, *bothpval; 
+char *covf, *phenof, *genof, *lr_outFile, *obsValues_outFile, *wtsf, *pval, *bothpval; 
 int c, numInd, numSNP, numCov, optimize, numPermu, seed; 
 
 optimize = 1; // if 1, then do optimization (by default)
-covf = phenof = genof = llh_outFile = obsValues_outFile = wtsf = pval = bothpval = NULL; 
+covf = phenof = genof = lr_outFile = obsValues_outFile = wtsf = pval = bothpval = NULL; 
 numInd = numSNP = numCov = numPermu = seed = -1; 
 
 static struct option long_options[] = {
 	{"var", required_argument, 0, 'a' },
 	{"expr", required_argument, 0, 'b' },
 	{"geno", required_argument, 0, 'c' },
-	{"lrt", required_argument, 0, 'd' },
+	{"lr", required_argument, 0, 'd' },
 	{"detail", required_argument, 0, 'e' },
 	{"numSNP", required_argument, 0, 'f' },
 	{"numCov", required_argument, 0, 'g' },
@@ -331,7 +331,7 @@ int long_index = 0;
 		genof = optarg;
 	break;
 	case 'd':
-		llh_outFile = optarg;
+		lr_outFile = optarg;
 	break;
 	case 'e':
 		obsValues_outFile = optarg;
@@ -372,8 +372,8 @@ int long_index = 0;
 
 int k = 0; 
 int i = 0; 
-double lrt = 0; 
-double maxLlh = -INFINITY; 
+double lr = 0; 
+double maxLR = -INFINITY; 
 double minPval = INFINITY; 
 double maxBeta = -INFINITY;
 
@@ -434,10 +434,10 @@ if (sum_w != 1) {
 	}
 }
 
-// begin compute lrt
+// begin compute lr
 printf ("Compute weighted_likelihood.\n"); 
 FILE *ob = fopen(obsValues_outFile,"w+"); 
-fprintf (ob, "pos\tdistance\traw_beta\tsd_raw_beta\tconverted_standardized_beta\tconverted_llh\n");
+fprintf (ob, "pos\tdistance\tbeta\tsd_beta\tweighted_sd_beta\tweighted_lr\n");
 
 // store SNP, reduce number read/write to files 
 double snp_genotype [numInd][numSNP]; 
@@ -474,16 +474,16 @@ for ( i = 0 ; i < numSNP; i++){ // over each SNP
 			if (optimize==1){
 				// the underlying "source" of the llh is the normal-density 
 				// sup power. so we need to set the mu as beta_hat
-				lrt = computeGradient ( this_beta, this_beta, *(snp_weights+i)) ; // STANDARDIZED BETA, SD=1
+				lr = computeGradient ( this_beta, this_beta, *(snp_weights+i)) ; // STANDARDIZED BETA, SD=1
 			}
 			else if (optimize==0){
-					lrt = computeGradient ( this_beta, MEAN, *(snp_weights+i)) ; // STANDARDIZED BETA, SD=1
+					lr = computeGradient ( this_beta, MEAN, *(snp_weights+i)) ; // STANDARDIZED BETA, SD=1
 			}
 			else {
 					printf("\noptimize indication not recognized.\n");
 			}	
-			if (lrt > maxLlh){ // most significant
-				maxLlh = lrt;  
+			if (lr > maxLR){ // most significant
+				maxLR = lr;  
 	}
 	if (pvalue < minPval ) {
 		minPval = pvalue; 
@@ -494,15 +494,15 @@ for ( i = 0 ; i < numSNP; i++){ // over each SNP
 		maxBeta = fabs(sdzBeta); 
 	}
 	distance = geneps - snpps ; // tss - snp 
-	fprintf (ob, "%d\t%d\t%f\t%f\t%f\t%f\n", snpps, distance, beta,snp_stderr, this_beta, lrt);
+	fprintf (ob, "%d\t%d\t%f\t%f\t%f\t%f\n", snpps, distance, beta,snp_stderr, this_beta, lr);
 }
 
 printf ("snp with min p-value: pos %d, index: %d, min p-value: %f\n", min_snp_pos, min_index, minPval); 
 fclose(genoFile); 
 fclose(ob);
 
-FILE *fout = fopen(llh_outFile,"w+"); // most significant SNP 
-fprintf (fout, "%f\n", maxLlh);
+FILE *fout = fopen(lr_outFile,"w+"); // most significant SNP 
+fprintf (fout, "%f\n", maxLR);
 fclose(fout); 
 
 FILE *fout2 = fopen(pval,"w+"); 
@@ -558,16 +558,16 @@ if (numPermu > 0){
 
 			if (optimize==1){
 				// sup power. so we need to set the mu as beta_hat 
-				lrt = computeGradient ( this_beta, this_beta, *(snp_weights+i)) ; // STANDARDIZED BETA, SD=1 
+				lr = computeGradient ( this_beta, this_beta, *(snp_weights+i)) ; // STANDARDIZED BETA, SD=1 
 			}
 			else if (optimize==0){
-				lrt = computeGradient ( this_beta, MEAN, *(snp_weights+i)) ; // STANDARDIZED BETA, SD=1 
+				lr = computeGradient ( this_beta, MEAN, *(snp_weights+i)) ; // STANDARDIZED BETA, SD=1 
 			}
 			else {
 				printf("\noptimize indication not recognized.\n");
 			}
-			if (lrt > bestGradSim){ // most significant  
-				bestGradSim = lrt;  
+			if (lr > bestGradSim){ // most significant  
+				bestGradSim = lr;  
 			}
 			if (pvalue < bestPvalSim) {
 				bestPvalSim = pvalue; 
@@ -577,7 +577,7 @@ if (numPermu > 0){
 		if (bestPvalSim < minPval) {
 			compareCounter = compareCounter + 1; 
 		}
-		if (bestGradSim > maxLlh) {
+		if (bestGradSim > maxLR) {
 			compareCounterGrd = compareCounterGrd + 1; 
 		}
 
@@ -586,7 +586,7 @@ if (numPermu > 0){
 	double p1 = (double)compareCounter/numPermu; 
 	double p2 = (double)compareCounterGrd/numPermu;
 	printf ("pvalue based on min-p %f\n", p1 ); 
-	printf("pvalue based on lrt %f\n", p2 );
+	printf("pvalue based on lr %f\n", p2 );
 
 	FILE *bothp = fopen(bothpval,"w+");
 	fprintf(bothp, "uniform_pvalue %f nonuniform_pvalue %f\n", p1, p2);
