@@ -14,7 +14,7 @@ Run the executables as follows
             --seed [random seed] 
             --alt [alternative mean] this is a number. this option is ignored when --reuse is set to 1.  
             --reuse [reuse estimated mean as alternative mean] this is 1/0 for yes/no 
-            --final [permutation test p-value output] 
+            --output [permutation test p-value output] 
             
 
 ./computeOneGenePval_mvn 
