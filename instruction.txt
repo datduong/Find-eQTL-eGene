@@ -23,6 +23,7 @@ Run the executables as follows
             --numSample [# of samples to be drawn from mvn ~ analogous to # permutation]
             --seed [random seed] 
             --geno [gene expression] 
+            --fprdir [see http://genetics.cs.ucla.edu/egene-mvn/install.html]
             --pval [minimum pval over all the variants] 
             --lr [maximum likelihood over all the variants] 
             --w [prior] see above 
@@ -33,4 +34,35 @@ Run the executables as follows
             --output [eGene Pvalue using MVN method] 
             
             
+./MVN_corfactor2 
+            --corf  [correlation file of the variants]
+            --numSNP [# variants]
+            --numSample [# of samples to be drawn from mvn ~ analogous to # permutation]
+            --seed [random seed] 
+            --geno [gene expression]
+            --fprdir [see http://genetics.cs.ucla.edu/egene-mvn/install.html]
+            --pval [uncorrected minimum pval over all the variants] 
+            --ulr [uncorrected maximum likelihood over all the variants]
+            --w [prior]
+            --alt [alternative mean]
+            --reuse [reuse estimated mean as alternative mean]
+            --windowSize [500000 is recommended] 
+            --output [eGene Pvalue using MVN method] 
+            
+            
+./permutation_corfactor2 
+            --var [covariates age, gender etc] this is a .txt input
+            --numCov [# components such as age, gender etc] 
+            --expr [gene expression] also .txt input 
+            --geno [variants] also .txt input
+            --numSNP [# variants] 
+            --w [prior] also .txt input. priors will be normalized inside the code.
+            --pval [minimum p-value among all variants output] 
+            --ulr [uncorrected maximum likelihood ratio output] 
+            --permutation [# permutations] should be at least 1000
+            --seed [random seed] 
+            --alt [alternative mean] this is a number. this option is ignored when --reuse is set to 1.  
+            --reuse [reuse estimated mean as alternative mean] this is 1/0 for yes/no 
+            --final [permutation test p-value output] 
+
             
